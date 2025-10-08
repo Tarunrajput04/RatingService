@@ -1,18 +1,22 @@
 spring:
+  profiles.active: default
+
   application:
-    name: RATING-SERVICE
+    name: RATINGSERVICE
+
   data:
     mongodb:
       uri: mongodb+srv://Tarun:Tarun123@cluster0.b1nvh5h.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       database: ratings
+
+  config:
+    import: optional:configserver:http://localhost:8085
+
 server:
   port: 8081
 
 eureka:
   instance:
     prefer-ip-address: true
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}
